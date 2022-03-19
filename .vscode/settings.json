@@ -1,0 +1,5 @@
+{
+    "yaml.schemas": {
+        "https://json.schemastore.org/yamllint.json": "file:///Users/enwel/Git_NA/kubevirt-minio-backup-test/rook/cluster/cluster.yaml"
+    }
+}
