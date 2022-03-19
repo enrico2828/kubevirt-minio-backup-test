@@ -1,7 +1,5 @@
 
-k3d cluster create --config ../k3d/config
 
-export KUBECONFIG=$(k3d kubeconfig write minio-cluster)
 
 kubectl minio init 
 

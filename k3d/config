@@ -1,19 +1,27 @@
-apiVersion: k3d.io/v1alpha2
+apiVersion: k3d.io/v1alpha4
 kind: Simple
-name: minio-cluster
-image: rancher/k3s:v1.21.10-k3s1
+metadata:
+  name: k3d-cluster
+image:  docker.io/rancher/k3s:v1.22.6-k3s1
 registries:
-  create: true
+  create: # creates a default registry to be used with the cluster; same as `--registry-create registry.localhost`
+    name: registry.localhost
+    host: "0.0.0.0"
+    hostPort: "5000"
+subnet: "172.28.0.0/16" # same as `--subnet 172.28.0.0/16`
 servers: 1
-agents: 3
+agents: 4
 options:
     kubeconfig:
         updateDefaultKubeconfig: false
         switchCurrentContext: false
+    k3s:
+      extraArgs:
+        - arg: --snapshotter=native
+          nodeFilters:
+            - server:*
 ports:
   - port: 80:80
     nodeFilters:
       - loadbalancer
-  - port: 443:443
-    nodeFilters:
-      - loadbalancer
+  
